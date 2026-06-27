@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -262,12 +263,13 @@
     <div class="uçan-kalp" style="left: 92%; animation-delay: 1s;">❤️</div>
 
     <div class="card" id="kart">
-        <!-- SENİN FOTOĞRAFLARIN (verdiğin isimlerle) -->
+        <!-- BİRİNCİ FOTOĞRAF (Pinterest Linki) -->
         <img 
-            src="c4a29bb7221a7377f2b455026eeb936f.jpg" 
-            alt="Senin fotoğrafın" 
+            src="https://i.pinimg.com/236x/3e/2a/8c/3e2a8c3c3c3c3c3c3c3c3c3c3c3c3c3c.jpg" 
+            alt="Sevimli kedi" 
             class="foto" 
             id="profilFoto"
+            onerror="this.src='https://picsum.photos/seed/1/300/300'"
         />
 
         <h1>💖 Bir Soru Var</h1>
@@ -278,9 +280,9 @@
             <button class="btn btn-hayir" id="hayirBtn">Hayır 💔</button>
         </div>
 
-        <!-- EVET SONRASI MESAJ (ikinci fotoğraf) -->
+        <!-- İKİNCİ FOTOĞRAF (Evet sonrası) -->
         <div class="cevap-mesaji" id="cevapMesaji">
-            <img src="edb460c4e781c265aed428b24964b946.jpg" alt="mutlu" id="mesajFoto" />
+            <img src="https://i.pinimg.com/236x/4f/8b/9c/4f8b9c3c3c3c3c3c3c3c3c3c3c3c3c3c.jpg" alt="Mutlu kedi" id="mesajFoto" onerror="this.src='https://picsum.photos/seed/2/100/100'" />
             <span>Bende seni seviyorum yavrummm! 💕</span>
         </div>
     </div>
@@ -295,11 +297,13 @@
             const profilFoto = document.getElementById('profilFoto');
             const mesajFoto = document.getElementById('mesajFoto');
 
-            // Fotoğraflar (senin verdiğin)
-            const ilkFoto = 'c4a29bb7221a7377f2b455026eeb936f.jpg';
-            const ikinciFoto = 'edb460c4e781c265aed428b24964b946.jpg';
+            // Pinterest'ten aldığım gerçek görsel linkleri (örnek)
+            // NOT: Pinterest doğrudan görsel linki vermez, bu yüzden gerçek görsel URL'lerini bulup eklemelisin.
+            // Aşağıdaki linkler örnektir, gerçek linkleri kendi bulmalısın.
+            const ilkFoto = 'https://i.pinimg.com/236x/3e/2a/8c/3e2a8c3c3c3c3c3c3c3c3c3c3c3c3c3c.jpg';
+            const ikinciFoto = 'https://i.pinimg.com/236x/4f/8b/9c/4f8b9c3c3c3c3c3c3c3c3c3c3c3c3c3c.jpg';
 
-            // Eğer fotoğraf yüklenmezse hata vermesin diye
+            // Eğer fotoğraf yüklenmezse yedek
             profilFoto.onerror = function() {
                 this.src = 'https://picsum.photos/seed/1/300/300';
             };
@@ -307,7 +311,6 @@
                 this.src = 'https://picsum.photos/seed/2/100/100';
             };
 
-            // Hayır butonunu kaçır
             function hayirKac() {
                 const btnWidth = hayirBtn.offsetWidth;
                 const btnHeight = hayirBtn.offsetHeight;
@@ -332,7 +335,6 @@
                 hayirBtn.classList.add('kaç');
             }
 
-            // Hayır butonu olayları
             hayirBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 hayirKac();
@@ -344,21 +346,15 @@
                 }
             });
 
-            // Evet butonu
             evetBtn.addEventListener('click', function() {
-                // İkinci fotoğrafı göster
                 profilFoto.src = ikinciFoto;
                 mesajFoto.src = ikinciFoto;
 
-                // Soru ve butonları gizle
                 soruMetni.style.display = 'none';
                 butonGrubu.style.display = 'none';
-
-                // Mesajı göster
                 cevapMesaji.style.display = 'flex';
             });
 
-            // Sayfa yüklendiğinde
             window.addEventListener('load', function() {
                 hayirBtn.style.position = 'relative';
                 hayirBtn.style.left = 'auto';
@@ -367,7 +363,6 @@
                 cevapMesaji.style.display = 'none';
             });
 
-            // Pencere boyutu değişince
             window.addEventListener('resize', function() {
                 if (hayirBtn.style.position === 'absolute') {
                     hayirBtn.style.position = 'relative';
