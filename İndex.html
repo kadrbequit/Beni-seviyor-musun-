@@ -23,12 +23,12 @@
             overflow: hidden;
         }
 
-
+        /* Uçan kalpler */
         .uçan-kalp {
             position: fixed;
-            font-size: 25px;
-            animation: uçuş 15s linear infinite;
-            opacity: 0.15;
+            font-size: 30px;
+            animation: uçuş 12s linear infinite;
+            opacity: 0.2;
             pointer-events: none;
             z-index: 0;
         }
@@ -39,10 +39,10 @@
                 opacity: 0;
             }
             10% {
-                opacity: 0.15;
+                opacity: 0.2;
             }
             90% {
-                opacity: 0.15;
+                opacity: 0.2;
             }
             100% {
                 transform: translateY(-10vh) rotate(720deg) scale(1.5);
@@ -51,7 +51,7 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.88);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(20px);
             padding: 40px 30px;
             border-radius: 60px 60px 40px 40px;
@@ -59,7 +59,6 @@
             max-width: 500px;
             width: 100%;
             text-align: center;
-            transition: all 0.3s ease;
             border: 2px solid rgba(255, 255, 255, 0.8);
             position: relative;
             z-index: 1;
@@ -92,11 +91,10 @@
             color: #c0395b;
             margin-bottom: 20px;
             font-weight: 700;
-            letter-spacing: 0.5px;
-            animation: başlıkKalp 2s ease-in-out infinite;
+            animation: başlıkAtışı 2s ease-in-out infinite;
         }
 
-        @keyframes başlıkKalp {
+        @keyframes başlıkAtışı {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
@@ -171,6 +169,7 @@
             background: linear-gradient(135deg, #95a5a6, #7f8c8d);
             color: white;
             box-shadow: 0 8px 0 #5d6d7e;
+            transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .btn-hayir:hover {
@@ -184,8 +183,8 @@
         }
 
         .btn-hayir.kaç {
-            transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: absolute !important;
+            transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .cevap-mesaji {
@@ -225,7 +224,7 @@
             vertical-align: middle;
         }
 
- 
+        /* Mobil */
         @media (max-width: 480px) {
             .card {
                 padding: 25px 20px;
@@ -253,7 +252,7 @@
     </style>
 </head>
 <body>
-
+    <!-- Uçan kalpler -->
     <div class="uçan-kalp" style="left: 5%; animation-delay: 0s;">❤️</div>
     <div class="uçan-kalp" style="left: 15%; animation-delay: 3s;">💕</div>
     <div class="uçan-kalp" style="left: 30%; animation-delay: 6s;">❤️</div>
@@ -263,7 +262,7 @@
     <div class="uçan-kalp" style="left: 92%; animation-delay: 1s;">❤️</div>
 
     <div class="card" id="kart">
-
+        <!-- SENİN FOTOĞRAFLARIN (verdiğin isimlerle) -->
         <img 
             src="c4a29bb7221a7377f2b455026eeb936f.jpg" 
             alt="Senin fotoğrafın" 
@@ -279,7 +278,8 @@
             <button class="btn btn-hayir" id="hayirBtn">Hayır 💔</button>
         </div>
 
-                <div class="cevap-mesaji" id="cevapMesaji">
+        <!-- EVET SONRASI MESAJ (ikinci fotoğraf) -->
+        <div class="cevap-mesaji" id="cevapMesaji">
             <img src="edb460c4e781c265aed428b24964b946.jpg" alt="mutlu" id="mesajFoto" />
             <span>Bende seni seviyorum yavrummm! 💕</span>
         </div>
@@ -295,24 +295,31 @@
             const profilFoto = document.getElementById('profilFoto');
             const mesajFoto = document.getElementById('mesajFoto');
 
-            
+            // Fotoğraflar (senin verdiğin)
             const ilkFoto = 'c4a29bb7221a7377f2b455026eeb936f.jpg';
             const ikinciFoto = 'edb460c4e781c265aed428b24964b946.jpg';
 
-            
+            // Eğer fotoğraf yüklenmezse hata vermesin diye
+            profilFoto.onerror = function() {
+                this.src = 'https://picsum.photos/seed/1/300/300';
+            };
+            mesajFoto.onerror = function() {
+                this.src = 'https://picsum.photos/seed/2/100/100';
+            };
+
+            // Hayır butonunu kaçır
             function hayirKac() {
                 const btnWidth = hayirBtn.offsetWidth;
                 const btnHeight = hayirBtn.offsetHeight;
                 
-                
                 const maxX = butonGrubu.clientWidth - btnWidth - 15;
                 const maxY = butonGrubu.clientHeight - btnHeight - 15;
 
-                
                 if (maxX < 0 || maxY < 0) {
                     hayirBtn.style.position = 'relative';
                     hayirBtn.style.left = 'auto';
                     hayirBtn.style.top = 'auto';
+                    hayirBtn.classList.remove('kaç');
                     return;
                 }
 
@@ -325,42 +332,42 @@
                 hayirBtn.classList.add('kaç');
             }
 
-            
+            // Hayır butonu olayları
             hayirBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 hayirKac();
             });
 
-            
             hayirBtn.addEventListener('mouseenter', function() {
                 if (cevapMesaji.style.display === 'none' || cevapMesaji.style.display === '') {
                     hayirKac();
                 }
             });
 
-            
+            // Evet butonu
             evetBtn.addEventListener('click', function() {
-                
+                // İkinci fotoğrafı göster
                 profilFoto.src = ikinciFoto;
                 mesajFoto.src = ikinciFoto;
 
-                
+                // Soru ve butonları gizle
                 soruMetni.style.display = 'none';
                 butonGrubu.style.display = 'none';
 
-                 
+                // Mesajı göster
                 cevapMesaji.style.display = 'flex';
             });
 
-            
+            // Sayfa yüklendiğinde
             window.addEventListener('load', function() {
                 hayirBtn.style.position = 'relative';
                 hayirBtn.style.left = 'auto';
                 hayirBtn.style.top = 'auto';
                 hayirBtn.classList.remove('kaç');
+                cevapMesaji.style.display = 'none';
             });
 
-          
+            // Pencere boyutu değişince
             window.addEventListener('resize', function() {
                 if (hayirBtn.style.position === 'absolute') {
                     hayirBtn.style.position = 'relative';
