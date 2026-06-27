@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beni Seviyor musun?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffe6f0, #ffd9e8);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            padding: 40px 30px;
+            border-radius: 60px 60px 40px 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .foto {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 6px solid white;
+            box-shadow: 0 10px 25px rgba(255, 80, 120, 0.3);
+            margin-bottom: 25px;
+            transition: transform 0.4s ease;
+        }
+
+        .foto:hover {
+            transform: scale(1.02);
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #a0325a;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .soru {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #4a2a3a;
+            margin: 15px 0 25px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            position: relative;
+            min-height: 80px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 14px 42px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.1);
+            letter-spacing: 1px;
+            user-select: none;
+        }
+
+        .btn-evet {
+            background: #ff4d7a;
+            color: white;
+        }
+
+        .btn-evet:hover {
+            background: #ff1f5a;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-evet:active {
+            transform: translateY(5px);
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-hayir {
+            background: #b0b0b0;
+            color: white;
+        }
+
+        .btn-hayir:hover {
+            background: #9a9a9a;
+            transform: translateY(-3px);
+        }
+
+        .btn-hayir:active {
+            transform: translateY(5px);
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+        }
+
+  
+        .btn-hayir.kaç {
+            transition: all 0.15s ease;
+            position: relative;
+        }
+
+      
+        .cevap-mesaji {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50px;
+            font-size: 1.8rem;
+            color: #a0325a;
+            font-weight: 700;
+            animation: kalpAtisi 0.8s infinite alternate;
+            border: 2px solid #ff99bb;
+        }
+
+        .cevap-mesaji img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 3px solid #ff4d7a;
+            vertical-align: middle;
+        }
+
+        .cevap-mesaji span {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        @keyframes kalpAtisi {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.02); background: rgba(255, 220, 235, 0.8); }
+        }
+
+       
+        @media (max-width: 480px) {
+            .card {
+                padding: 25px 20px;
+            }
+            .foto {
+                max-width: 200px;
+                height: 200px;
+            }
+            .btn {
+                padding: 12px 28px;
+                font-size: 1.2rem;
+            }
+            .soru {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card" id="kart">
+       
+        <img 
+            src="https://picsum.photos/id/1025/300/300" 
+            alt="Senin fotoğrafın" 
+            class="foto" 
+            id="profilFoto"
+        />
+
+        <h1>💖 Bir Soru Var</h1>
+        <div class="soru" id="soruMetni">Beni seviyor musun?</div>
+
+        <div class="button-group" id="butonGrubu">
+            <button class="btn btn-evet" id="evetBtn">Evet ❤️</button>
+            <button class="btn btn-hayir" id="hayirBtn">Hayır 💔</button>
+        </div>
+
+        
+        <div class="cevap-mesaji" id="cevapMesaji">
+            <img src="https://picsum.photos/id/1025/100/100" alt="mutlu" id="mesajFoto" />
+            <span>Bende seni seviyorum yavrummm! 💕</span>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const evetBtn = document.getElementById('evetBtn');
+            const hayirBtn = document.getElementById('hayirBtn');
+            const soruMetni = document.getElementById('soruMetni');
+            const butonGrubu = document.getElementById('butonGrubu');
+            const cevapMesaji = document.getElementById('cevapMesaji');
+            const profilFoto = document.getElementById('profilFoto');
+            const mesajFoto = document.getElementById('mesajFoto');
+
+    
+            const ilkFoto = 'https://picsum.photos/id/1025/300/300';
+            const ikinciFoto = 'https://picsum.photos/id/1025/300/300'; 
+             
+
+            
+            function hayirKac() {
+                
+                const grupRect = butonGrubu.getBoundingClientRect();
+                const btnRect = hayirBtn.getBoundingClientRect();
+
+               
+                const btnWidth = hayirBtn.offsetWidth;
+                const btnHeight = hayirBtn.offsetHeight;
+
+                
+                const maxX = butonGrubu.clientWidth - btnWidth - 10;
+                const maxY = butonGrubu.clientHeight - btnHeight - 10;
+
+              
+                const rndX = Math.floor(Math.random() * (maxX + 1));
+                const rndY = Math.floor(Math.random() * (maxY + 1));
+
+                
+                hayirBtn.style.position = 'absolute';
+                hayirBtn.style.left = rndX + 'px';
+                hayirBtn.style.top = rndY + 'px';
+                hayirBtn.classList.add('kaç');
+            }
+
+            
+            hayirBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                hayirKac();
+            });
+
+            
+            hayirBtn.addEventListener('mouseenter', function() {
+                
+                if (!cevapMesaji.style.display || cevapMesaji.style.display === 'none') {
+                    hayirKac();
+                }
+            });
+
+      
+            evetBtn.addEventListener('click', function() {
+               
+                profilFoto.src = ikinciFoto;
+                mesajFoto.src = ikinciFoto; 
+
+               
+                soruMetni.style.display = 'none';
+                butonGrubu.style.display = 'none';
+
+                
+                cevapMesaji.style.display = 'flex';
+                cevapMesaji.style.alignItems = 'center';
+                cevapMesaji.style.justifyContent = 'center';
+                cevapMesaji.style.gap = '10px';
+            });
+
+            
+            window.addEventListener('load', function() {
+                hayirBtn.style.position = 'static';
+                hayirBtn.style.left = 'auto';
+                hayirBtn.style.top = 'auto';
+                hayirBtn.classList.remove('kaç');
+            });
+
+        })();
+    </script>
+</body>
+  </html>
