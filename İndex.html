@@ -12,26 +12,63 @@
         }
 
         body {
-            background: linear-gradient(135deg, #ffe6f0, #ffd9e8);
+            background: linear-gradient(135deg, #ff6b8a, #ff2d55, #c0395b);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .uçan-kalp {
+            position: fixed;
+            font-size: 25px;
+            animation: uçuş 15s linear infinite;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes uçuş {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.15;
+            }
+            90% {
+                opacity: 0.15;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(720deg) scale(1.5);
+                opacity: 0;
+            }
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(20px);
             padding: 40px 30px;
             border-radius: 60px 60px 40px 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 30px 60px rgba(192, 57, 91, 0.4);
             max-width: 500px;
             width: 100%;
             text-align: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 1;
+            animation: kartIşıltısı 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes kartIşıltısı {
+            0% { box-shadow: 0 30px 60px rgba(192, 57, 91, 0.4); }
+            100% { box-shadow: 0 30px 80px rgba(255, 45, 85, 0.8); }
         }
 
         .foto {
@@ -40,28 +77,37 @@
             height: 300px;
             object-fit: cover;
             border-radius: 50%;
-            border: 6px solid white;
-            box-shadow: 0 10px 25px rgba(255, 80, 120, 0.3);
+            border: 6px solid #ff2d55;
+            box-shadow: 0 10px 30px rgba(255, 45, 85, 0.4);
             margin-bottom: 25px;
-            transition: transform 0.4s ease;
+            transition: all 0.4s ease;
         }
 
         .foto:hover {
-            transform: scale(1.02);
+            transform: scale(1.05) rotate(-3deg);
         }
 
         h1 {
-            font-size: 2rem;
-            color: #a0325a;
+            font-size: 2.2rem;
+            color: #c0395b;
             margin-bottom: 20px;
             font-weight: 700;
             letter-spacing: 0.5px;
+            animation: başlıkKalp 2s ease-in-out infinite;
+        }
+
+        @keyframes başlıkKalp {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .soru {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 600;
-            color: #4a2a3a;
+            background: linear-gradient(135deg, #ff2d55, #ff6b8a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin: 15px 0 25px;
         }
 
@@ -72,7 +118,7 @@
             flex-wrap: wrap;
             margin-top: 10px;
             position: relative;
-            min-height: 80px;
+            min-height: 90px;
             align-items: center;
         }
 
@@ -83,71 +129,95 @@
             border: none;
             border-radius: 100px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             letter-spacing: 1px;
             user-select: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn-evet {
-            background: #ff4d7a;
+            background: linear-gradient(135deg, #ff2d55, #ff6b8a);
             color: white;
+            box-shadow: 0 8px 0 #a9324a;
         }
 
         .btn-evet:hover {
-            background: #ff1f5a;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 0 rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 0 #a9324a;
         }
 
         .btn-evet:active {
             transform: translateY(5px);
-            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 0 #a9324a;
         }
 
         .btn-hayir {
-            background: #b0b0b0;
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
             color: white;
+            box-shadow: 0 8px 0 #5d6d7e;
         }
 
         .btn-hayir:hover {
-            background: #9a9a9a;
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 0 #5d6d7e;
         }
 
         .btn-hayir:active {
             transform: translateY(5px);
-            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 0 #5d6d7e;
         }
 
-  
         .btn-hayir.kaç {
-            transition: all 0.15s ease;
-            position: relative;
+            transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: absolute !important;
         }
 
-      
         .cevap-mesaji {
             display: none;
-            margin-top: 20px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.6);
+            margin-top: 25px;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 200, 210, 0.95));
             border-radius: 50px;
-            font-size: 1.8rem;
-            color: #a0325a;
+            font-size: 2rem;
+            color: #c0395b;
             font-weight: 700;
-            animation: kalpAtisi 0.8s infinite alternate;
-            border: 2px solid #ff99bb;
+            animation: kalpAtışı 1s ease-in-out infinite alternate;
+            border: 3px solid #ff2d55;
+            box-shadow: 0 10px 30px rgba(255, 45, 85, 0.3);
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        @keyframes kalpAtışı {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); background: linear-gradient(135deg, rgba(255, 200, 210, 0.95), rgba(255, 150, 180, 0.95)); }
         }
 
         .cevap-mesaji img {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             object-fit: cover;
-            margin-right: 15px;
-            border: 3px solid #ff4d7a;
-            vertical-align: middle;
+            border: 4px solid #ff2d55;
+            box-shadow: 0 5px 20px rgba(255, 45, 85, 0.3);
         }
 
         .cevap-mesaji span {
@@ -155,12 +225,7 @@
             vertical-align: middle;
         }
 
-        @keyframes kalpAtisi {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.02); background: rgba(255, 220, 235, 0.8); }
-        }
-
-       
+ 
         @media (max-width: 480px) {
             .card {
                 padding: 25px 20px;
@@ -174,16 +239,33 @@
                 font-size: 1.2rem;
             }
             .soru {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
+            }
+            .cevap-mesaji {
+                font-size: 1.5rem;
+                padding: 20px 15px;
+            }
+            .cevap-mesaji img {
+                width: 60px;
+                height: 60px;
             }
         }
     </style>
 </head>
 <body>
+
+    <div class="uçan-kalp" style="left: 5%; animation-delay: 0s;">❤️</div>
+    <div class="uçan-kalp" style="left: 15%; animation-delay: 3s;">💕</div>
+    <div class="uçan-kalp" style="left: 30%; animation-delay: 6s;">❤️</div>
+    <div class="uçan-kalp" style="left: 50%; animation-delay: 2s;">💗</div>
+    <div class="uçan-kalp" style="left: 65%; animation-delay: 4s;">❤️</div>
+    <div class="uçan-kalp" style="left: 80%; animation-delay: 7s;">💕</div>
+    <div class="uçan-kalp" style="left: 92%; animation-delay: 1s;">❤️</div>
+
     <div class="card" id="kart">
-       
+
         <img 
-            src="https://picsum.photos/id/1025/300/300" 
+            src="c4a29bb7221a7377f2b455026eeb936f.jpg" 
             alt="Senin fotoğrafın" 
             class="foto" 
             id="profilFoto"
@@ -197,9 +279,8 @@
             <button class="btn btn-hayir" id="hayirBtn">Hayır 💔</button>
         </div>
 
-        
-        <div class="cevap-mesaji" id="cevapMesaji">
-            <img src="https://picsum.photos/id/1025/100/100" alt="mutlu" id="mesajFoto" />
+                <div class="cevap-mesaji" id="cevapMesaji">
+            <img src="edb460c4e781c265aed428b24964b946.jpg" alt="mutlu" id="mesajFoto" />
             <span>Bende seni seviyorum yavrummm! 💕</span>
         </div>
     </div>
@@ -214,30 +295,30 @@
             const profilFoto = document.getElementById('profilFoto');
             const mesajFoto = document.getElementById('mesajFoto');
 
-    
+            
             const ilkFoto = 'c4a29bb7221a7377f2b455026eeb936f.jpg';
-            const ikinciFoto = 'edb460c4e781c265aed428b24964b946.jpg'; 
-             
+            const ikinciFoto = 'edb460c4e781c265aed428b24964b946.jpg';
 
             
             function hayirKac() {
-                
-                const grupRect = butonGrubu.getBoundingClientRect();
-                const btnRect = hayirBtn.getBoundingClientRect();
-
-               
                 const btnWidth = hayirBtn.offsetWidth;
                 const btnHeight = hayirBtn.offsetHeight;
+                
+                
+                const maxX = butonGrubu.clientWidth - btnWidth - 15;
+                const maxY = butonGrubu.clientHeight - btnHeight - 15;
 
                 
-                const maxX = butonGrubu.clientWidth - btnWidth - 10;
-                const maxY = butonGrubu.clientHeight - btnHeight - 10;
+                if (maxX < 0 || maxY < 0) {
+                    hayirBtn.style.position = 'relative';
+                    hayirBtn.style.left = 'auto';
+                    hayirBtn.style.top = 'auto';
+                    return;
+                }
 
-              
                 const rndX = Math.floor(Math.random() * (maxX + 1));
                 const rndY = Math.floor(Math.random() * (maxY + 1));
 
-                
                 hayirBtn.style.position = 'absolute';
                 hayirBtn.style.left = rndX + 'px';
                 hayirBtn.style.top = rndY + 'px';
@@ -252,38 +333,43 @@
 
             
             hayirBtn.addEventListener('mouseenter', function() {
-                
-                if (!cevapMesaji.style.display || cevapMesaji.style.display === 'none') {
+                if (cevapMesaji.style.display === 'none' || cevapMesaji.style.display === '') {
                     hayirKac();
                 }
             });
 
-      
+            
             evetBtn.addEventListener('click', function() {
-               
+                
                 profilFoto.src = ikinciFoto;
-                mesajFoto.src = ikinciFoto; 
+                mesajFoto.src = ikinciFoto;
 
-               
+                
                 soruMetni.style.display = 'none';
                 butonGrubu.style.display = 'none';
 
-                
+                 
                 cevapMesaji.style.display = 'flex';
-                cevapMesaji.style.alignItems = 'center';
-                cevapMesaji.style.justifyContent = 'center';
-                cevapMesaji.style.gap = '10px';
             });
 
             
             window.addEventListener('load', function() {
-                hayirBtn.style.position = 'static';
+                hayirBtn.style.position = 'relative';
                 hayirBtn.style.left = 'auto';
                 hayirBtn.style.top = 'auto';
                 hayirBtn.classList.remove('kaç');
             });
 
+          
+            window.addEventListener('resize', function() {
+                if (hayirBtn.style.position === 'absolute') {
+                    hayirBtn.style.position = 'relative';
+                    hayirBtn.style.left = 'auto';
+                    hayirBtn.style.top = 'auto';
+                    hayirBtn.classList.remove('kaç');
+                }
+            });
         })();
     </script>
 </body>
-  </html>
+</html>
